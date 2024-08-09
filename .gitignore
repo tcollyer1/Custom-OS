@@ -1,3 +1,6 @@
+# Bootloader output and Bochs config
+*.flp
+*.bxrc
 # User-specific files
 *.user
 *.userosscache
