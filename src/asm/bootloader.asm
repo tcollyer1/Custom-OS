@@ -17,8 +17,8 @@ call display
 jmp $ ; Repeat until interrupted
 
 ; Include other .asm files here
-%include "src/displayMsg.asm"
-%include "src/readDisk.asm"
+%include "src/asm/displayMsg.asm"
+%include "src/asm/readDisk.asm"
 
 ; Must always be at the end
 times 510-($-$$) db 0 ; Pad 510 bytes with 0

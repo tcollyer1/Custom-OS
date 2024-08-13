@@ -19,10 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\bootloader.asm" />
-    <None Include="src\displayMsg.asm" />
-    <None Include="src\prgExtension.asm" />
-    <None Include="src\readDisk.asm" />
+    <None Include="src\asm\bootloader.asm" />
+    <None Include="src\asm\displayMsg.asm" />
+    <None Include="src\asm\prgExtension.asm" />
+    <None Include="src\asm\readDisk.asm" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

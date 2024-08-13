@@ -21,16 +21,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\bootloader.asm">
+    <None Include="src\asm\bootloader.asm">
       <Filter>Source Files\Boot Sector</Filter>
     </None>
-    <None Include="src\displayMsg.asm">
+    <None Include="src\asm\displayMsg.asm">
       <Filter>Source Files\Boot Sector</Filter>
     </None>
-    <None Include="src\readDisk.asm">
+    <None Include="src\asm\readDisk.asm">
       <Filter>Source Files\Boot Sector</Filter>
     </None>
-    <None Include="src\prgExtension.asm">
+    <None Include="src\asm\prgExtension.asm">
       <Filter>Source Files\Sectors 2-4</Filter>
     </None>
   </ItemGroup>
