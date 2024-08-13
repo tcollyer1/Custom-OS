@@ -10,6 +10,7 @@ call display ; Store address of current line, jump to label display (displayMsg.
 
 call diskRead ; Store address of current line, jump to label diskRead (readDisk.asm), then resume from saved address afterwards
 
+; Display data from the next sector here, as a test
 mov bx, program_space
 call display
 
