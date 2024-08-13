@@ -13,10 +13,25 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Boot Sector">
+      <UniqueIdentifier>{b177e4a2-5b18-4cc0-b2dd-5b67f348cf49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Sectors 2-4">
+      <UniqueIdentifier>{dc205c3a-4454-4f21-a426-4a0efa40be43}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\bootloader.asm">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Boot Sector</Filter>
+    </None>
+    <None Include="src\displayMsg.asm">
+      <Filter>Source Files\Boot Sector</Filter>
+    </None>
+    <None Include="src\readDisk.asm">
+      <Filter>Source Files\Boot Sector</Filter>
+    </None>
+    <None Include="src\prgExtension.asm">
+      <Filter>Source Files\Sectors 2-4</Filter>
     </None>
   </ItemGroup>
 </Project>
