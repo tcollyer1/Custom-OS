@@ -1,3 +1,4 @@
+boot_space equ 0x7c00 ; First memory address of the boot sector (0x7c00-0x7dff)
 program_space equ 0x7e00 ; First memory address usable after the 512-byte boot sector (0x7c00-0x7dff)
 
 diskRead:
@@ -17,7 +18,7 @@ boot_disk:
 	db 0 ; Reserve a byte, boot_disk
 
 diskReadError: 
-	db 'ERROR: failed to read from disk', 0
+	db '[!] ERROR: failed to read from disk', 0x0d, 0xa, 0
 
 diskReadFailure:
 	mov bx, diskReadError ; If we've jumped here, there was an error reading from the disk. So display error message

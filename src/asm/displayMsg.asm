@@ -10,5 +10,5 @@ display:
 	exit:
 		ret ; Pop return address off stack and jump back to it (call display)
 
-outputStr:
-	db 'Boot program loaded. ', 0 ; Null terminate byte sequence
+bootMsg:
+	db 'Boot program loaded. ', 0x0d, 0xa, 0 ; Carriage return & new line, then null terminate byte sequence
