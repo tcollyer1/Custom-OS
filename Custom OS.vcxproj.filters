@@ -33,5 +33,8 @@
     <None Include="src\asm\prgExtension.asm">
       <Filter>Source Files\Sectors 2-4</Filter>
     </None>
+    <None Include="src\asm\gdt.asm">
+      <Filter>Source Files\Sectors 2-4</Filter>
+    </None>
   </ItemGroup>
 </Project>
