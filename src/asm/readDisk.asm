@@ -1,3 +1,9 @@
+; Loads 4 disk sectors into memory to be used to further extend the program beyond
+; the boot sector.
+;
+; Is able to display an error message in the event disk sectors cannot be read using
+; INT 13h.
+
 boot_space equ 0x7c00		; First memory address of the boot sector (0x7c00-0x7dff)
 program_space equ 0x7e00	; First memory address usable after the 512-byte boot sector (0x7c00-0x7dff)
 

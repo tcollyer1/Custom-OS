@@ -1,3 +1,9 @@
+; The extended program, accessible via further disk space loaded into memory.
+; Here, we also enable 32-bit protected mode so that we can later load in our kernel
+; compiled in 32-bit in C++.
+;
+; Bytes are also written to the screen in 32-bit mode by writing to video memory.
+
 [org 0x7e00] ; Set origin address of new sector
 
 ; Enable protected mode

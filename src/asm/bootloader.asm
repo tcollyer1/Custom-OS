@@ -1,3 +1,6 @@
+; Main bootloader. Displays a simple string and reads 4 sectors from the disk into memory to
+; extend the program, in 16-bit real mode via BIOS interrupts.
+
 [org 0x7c00]			; Specify the origin address that the program expects to be loaded into, so that calculated offsets are from this point of reference
 
 mov [boot_disk], dl		; Once the BIOS loads this program into memory, it stores the number of the disk it was loaded from into register dl

@@ -1,3 +1,6 @@
+; A simple printing function that prints any byte sequence stored in bx (in 16-bit mode) 
+; using INT 10h.
+
 display:
 	mov ah, 0x0e			; Scrolling teletype mode (for printing)
 	loop:
