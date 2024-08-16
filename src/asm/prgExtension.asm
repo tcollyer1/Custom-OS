@@ -31,6 +31,27 @@ enableA20:
 
 ; Establish 32-bit mode code area
 [bits 32]
+
+; 32-bit string display - writes directly to video memory
+display32:
+	mov ebx, str32			; Move string to ebx
+	mov ecx, 0xb8000		; Start of VGA text buffer
+	loop32:
+		cmp [ebx], byte 0	; Check if at end of string (it's null-terminated, so compare with 0)
+		je exit32
+		mov al, [ebx]		; Move to 8-bit register so an explicit byte can be written to the memory address
+		mov [ecx], al		; Write to video memory
+		add ecx, 2			; Increment address by 2 - addresses in between are for text formatting
+		inc ebx				; Increment to process next byte in our byte array (string)
+		jmp loop32
+	exit32:
+		ret					; Pop return address off stack and jump back
+
+; String to display in 32-bit mode
+str32:
+	db '32-bit display mode :) ', 0
+
+; Protected mode
 startProtectedMode:
     mov ax, data_segment		; Update segment registers to point to new data segment
     mov ds, ax
@@ -42,21 +63,7 @@ startProtectedMode:
 	mov esp, ebp
 
 	; Write directly to video memory in 32-bit mode
-	mov [0xb8000], byte '3'
-	mov [0xb8002], byte '2'
-	mov [0xb8004], byte '-'
-	mov [0xb8006], byte 'b'
-	mov [0xb8008], byte 'i'
-	mov [0xb800a], byte 't'
-	mov [0xb800c], byte ' '
-	mov [0xb800e], byte 'm'
-	mov [0xb8010], byte 'o'
-	mov [0xb8012], byte 'd'
-	mov [0xb8014], byte 'e'
-	mov [0xb8016], byte ' '
-	mov [0xb8018], byte ':'
-	mov [0xb801a], byte ')'
-	mov [0xb801c], byte ' '
+	call display32
 
 	jmp $
 
