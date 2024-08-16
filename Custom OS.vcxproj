@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="src\asm\bootloader.asm" />
+    <None Include="src\asm\cpuid.asm" />
     <None Include="src\asm\displayMsg.asm" />
     <None Include="src\asm\gdt.asm" />
     <None Include="src\asm\prgExtension.asm" />

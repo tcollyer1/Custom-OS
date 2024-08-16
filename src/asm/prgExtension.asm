@@ -12,6 +12,7 @@ jmp prepareProtectedMode
 ; Include files
 %include "src/asm/displayMsg.asm"
 %include "src/asm/gdt.asm"
+%include "src/asm/cpuid.asm"
 
 prepareProtectedMode:
 	call enableA20
@@ -65,6 +66,9 @@ startProtectedMode:
 	; Write directly to video memory in 32-bit mode
 	call display32
 
+	; Check if CPUID instruction is supported & then long mode
+	call testCPUID
+	call test64Long
 	jmp $
 
 times 2048-($-$) db 0 ; Pad out 4 further 512-byte sectors with zeroes that the BIOS can read from
