@@ -11,6 +11,7 @@ To run, ensure Bochs is installed and run `assemble.bat`, which will generate an
 
 ## Current Features
 Will add to this list as I flesh the project out.
-- Simple bootloader that displays a string in 16-bit real mode
+- Simple bootloader that displays a string in 16-bit real mode using interrupts
 - Loads sectors from the disk into memory to extend program space beyond the boot sector
-- Switches to 32-bit protected mode and writes to video memory to display a simple string
+- Switches to 32-bit protected mode, including a GDT (flat model) and writes to video memory to display a simple string
+- Enables 64-bit long mode, implements simple identity paging and clears the video buffer
