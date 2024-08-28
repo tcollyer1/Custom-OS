@@ -37,3 +37,21 @@ gdt:
 ; Useful constants
 code_segment equ gdtCode - gdtNull ; Code segment descriptor offset
 data_segment equ gdtData - gdtNull ; Data segment descriptor offset
+
+; Establish 32-bit mode code area - we'll be calling this to operate in 64-bit mode, from
+; 32-bit mode
+[bits 32]
+
+updateGDT64:
+	mov [gdtCode + 6], byte 10101111b	; Access the second flags byte from within our code descriptor,
+										; accessed by using the address of gdtCode with an offset of 6,
+										; and modify the existing flags for 64-bit mode.
+										; Flags			(granularity=1, default=0, long=1, avl=0 ---------> 1010)
+										; Limit (h)		(limit @ bits 16-19=1111 or 0xf000 to give 0xf000ffff)
+
+	mov [gdtData + 6], byte 10101111b	; Repeat for data descriptor
+	ret
+
+; Specify 16-bit mode here so that we retain compatibility with the 16-bit code from before
+; in this file
+[bits 16]

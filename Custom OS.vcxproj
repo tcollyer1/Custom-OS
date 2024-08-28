@@ -22,7 +22,9 @@
     <None Include="src\asm\bootloader.asm" />
     <None Include="src\asm\cpuid.asm" />
     <None Include="src\asm\displayMsg.asm" />
+    <None Include="src\asm\displayMsg32.asm" />
     <None Include="src\asm\gdt.asm" />
+    <None Include="src\asm\paging.asm" />
     <None Include="src\asm\prgExtension.asm" />
     <None Include="src\asm\readDisk.asm" />
   </ItemGroup>

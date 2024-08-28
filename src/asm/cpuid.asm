@@ -23,7 +23,7 @@ testCPUID:
 test64Long:
     mov eax, 0x80000001         ; Detect long mode via extended functions of CPUID - which start at addresses > 0x80000000
     cpuid                       ; Execute our CPUID instruction (uses eax register that we just filled)
-    test edx, 0x10000000        ; Check that bit 29 (bit for long mode) is set in the edx register (bitwise AND)
+    test edx, 0x20000000        ; Check that bit 29 (bit for long mode) is set in the edx register (performs bitwise AND)
     jz notSupported             ; Jump if 0 (bit 29 not set) - long mode not supported
     ret
 

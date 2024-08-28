@@ -39,5 +39,11 @@
     <None Include="src\asm\cpuid.asm">
       <Filter>Source Files\Sectors 2-4</Filter>
     </None>
+    <None Include="src\asm\paging.asm">
+      <Filter>Source Files\Sectors 2-4</Filter>
+    </None>
+    <None Include="src\asm\displayMsg32.asm">
+      <Filter>Source Files\Sectors 2-4</Filter>
+    </None>
   </ItemGroup>
 </Project>

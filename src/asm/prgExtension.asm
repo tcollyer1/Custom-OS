@@ -1,8 +1,7 @@
 ; The extended program, accessible via further disk space loaded into memory.
-; Here, we also enable 32-bit protected mode so that we can later load in our kernel
-; compiled in 32-bit in C++.
-;
-; Bytes are also written to the screen in 32-bit mode by writing to video memory.
+; Here, we also enable 32-bit protected mode, followed by 64-bit long mode - 
+; so that we can enable paging and later load in our kernel compiled in 64-bit
+; in C++.
 
 [org 0x7e00] ; Set origin address of new sector
 
@@ -12,7 +11,6 @@ jmp prepareProtectedMode
 ; Include files
 %include "src/asm/displayMsg.asm"
 %include "src/asm/gdt.asm"
-%include "src/asm/cpuid.asm"
 
 prepareProtectedMode:
 	call enableA20
@@ -33,24 +31,10 @@ enableA20:
 ; Establish 32-bit mode code area
 [bits 32]
 
-; 32-bit string display - writes directly to video memory
-display32:
-	mov ebx, str32			; Move string to ebx
-	mov ecx, 0xb8000		; Start of VGA text buffer
-	loop32:
-		cmp [ebx], byte 0	; Check if at end of string (it's null-terminated, so compare with 0)
-		je exit32
-		mov al, [ebx]		; Move to 8-bit register so an explicit byte can be written to the memory address
-		mov [ecx], al		; Write to video memory
-		add ecx, 2			; Increment address by 2 - addresses in between are for text formatting
-		inc ebx				; Increment to process next byte in our byte array (string)
-		jmp loop32
-	exit32:
-		ret					; Pop return address off stack and jump back
-
-; String to display in 32-bit mode
-str32:
-	db '32-bit display mode :) ', 0
+; Includes for 32-bit protected mode
+%include "src/asm/cpuid.asm"
+%include "src/asm/paging.asm"
+%include "src/asm/displayMsg32.asm"
 
 ; Protected mode
 startProtectedMode:
@@ -66,9 +50,31 @@ startProtectedMode:
 	; Write directly to video memory in 32-bit mode
 	call display32
 
-	; Check if CPUID instruction is supported & then long mode
+	; Check if CPUID instruction is supported & then long mode.
+	; Then, enable paging, update the GDT and enter 64-bit mode
 	call testCPUID
 	call test64Long
+	call identityPaging
+	call updateGDT64
+	jmp code_segment:startLongMode
+
+; Establish 64-bit mode code area.
+;
+; We don't need to update the segment registers again like we did for 32-bit mode,
+; as we're still using the same GDT
+[bits 64]
+
+; 64-bit long mode
+startLongMode:
+	mov edi, 0xb8000			; Load 0xb8000 (start of video memory) to destination index
+	mov rax, 0x4f204f204f204f20	; Displays a hexidecimal coloured space in 64-bit, using 64-bit A register
+	mov ecx, 500
+	rep stosq					; Stores contents of A register into where the destination index points to, N 
+								; times - N being the value stored in the 32-bit C register.
+								;
+								; Essentially, just clears the screen using a BG colour (red) (4), FG colour
+								; (white) (F) and character to clear with (space) (20) by displaying this
+								; character 500 times
 	jmp $
 
 times 2048-($-$) db 0 ; Pad out 4 further 512-byte sectors with zeroes that the BIOS can read from
